@@ -1,11 +1,10 @@
-# docker-compose.yml
-
+version: '3'
 services:
   backend:
     build:
       context: ./backend
     ports:
-      - "5001:5000" #changing from default 5000 as this has some issue with airplay on mac
+      - "5001:5000"
     environment:
       - FLASK_ENV=development
     volumes:
@@ -18,5 +17,3 @@ services:
       - "3000:80"
     depends_on:
       - backend
-    volumes:
-      - ./frontend:/usr/share/nginx/html

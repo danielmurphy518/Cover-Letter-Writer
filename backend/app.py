@@ -1,7 +1,8 @@
-# app.py
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 # Sample data
 items = [
@@ -46,4 +47,4 @@ def delete_item(item_id):
     return jsonify({'message': 'Item deleted'})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')  # Make sure Flask listens on all interfaces
