@@ -1,5 +1,5 @@
-# Build the React app
-FROM node:14-alpine as build
+# Use Node.js image for development
+FROM node:14-alpine
 
 WORKDIR /app
 
@@ -7,13 +7,8 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
-RUN npm run build
 
-# Use Nginx to serve the build
-FROM nginx:alpine
+# Expose port 3000 for the React development server
+EXPOSE 3000
 
-COPY --from=build /app/build /usr/share/nginx/html
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["npm", "start"]
