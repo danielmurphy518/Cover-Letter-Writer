@@ -2,24 +2,22 @@ import React, { useState } from 'react';
 import Form from './Form';
 
 const ItemList = () => {
-    const [items, setItems] = useState([]);
+    const [response, setResponse] = useState(null);
 
     const handleNewItem = (newItem) => {
-        setItems((prevItems) => [...prevItems, newItem]);
+        setResponse(newItem);
+        console.log(newItem);
     };
 
     return (
         <div>
             <h1>Enter URL</h1>
             <Form onNewItem={handleNewItem} />
-            {items.map((item, index) => (
-                <div key={index}>
-                    <h2>{item.title}</h2>
-                    {/* {item.paragraphs.map((paragraph, i) => (
-                        <p key={i}>{paragraph}</p>
-                    ))} */}
+            {response && (
+                <div>
+                    <pre>{JSON.stringify(response, null, 2)}</pre>
                 </div>
-            ))}
+            )}
         </div>
     );
 };

@@ -1,0 +1,46 @@
+Python
+Flask
+Django
+JavaScript
+NodeJS
+React
+Vue.js
+Angular
+HTML
+CSS
+Java
+C++
+C#
+Ruby
+Rails
+PHP
+Laravel
+SQL
+NoSQL
+MongoDB
+PostgreSQL
+MySQL
+SQLite
+Docker
+Kubernetes
+AWS
+Azure
+GCP
+CI/CD
+Git
+REST
+GraphQL
+TypeScript
+Swift
+Objective-C
+Kotlin
+Android
+iOS
+TensorFlow
+PyTorch
+Machine Learning
+Artificial Intelligence
+Data Science
+Big Data
+Hadoop
+Spark
