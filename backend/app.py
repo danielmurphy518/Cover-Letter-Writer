@@ -4,16 +4,28 @@ from flask_cors import CORS
 import requests
 from bs4 import BeautifulSoup
 import os
-
+import fitz  # PyMuPDF for PDF processing
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
-
 UPLOAD_FOLDER = 'uploads'  # Directory to save uploaded files
+KEYWORDS_FILE_PATH = 'backend/keywords.txt'  # Path to the keywords file
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+# Load keywords from the keywords.txt file
+def load_keywords():
+    with open('keywords.txt', 'r') as file:
+        lines = []
+
+        for line in file:
+            line = line.strip()
+
+            lines.append(line)
+    return lines
+
 
 # Sample data
 items = [
@@ -77,7 +89,7 @@ def process_link():
         paragraphs = [p.get_text() for p in soup.find_all('p')]
 
         # Search for keywords in the entire soup content
-        keywords = ['Azure']
+        keywords = load_keywords()
         content = soup.get_text()
         found_keywords = {keyword: content.lower().count(keyword.lower()) for keyword in keywords}
 
@@ -87,7 +99,6 @@ def process_link():
     except requests.RequestException as e:
         app.logger.error(f"Error fetching the URL: {e}")
         return jsonify({'error': 'Failed to fetch the URL'}), 500
-
 
 @app.route('/api/upload_file', methods=['POST'])
 def upload_file():
@@ -102,17 +113,47 @@ def upload_file():
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
         file.save(file_path)
         return jsonify({'message': 'File uploaded successfully', 'file_path': file_path})
-    
+
 @app.route('/api/get_files', methods=['GET'])
 def get_files():
-    app.logger.error("HELLO WORLD")
     try:
         files = os.listdir(app.config['UPLOAD_FOLDER'])
-        app.logger.error(files)
         return jsonify({'files': files})
     except Exception as e:
         app.logger.error(f"Error listing files: {e}")
         return jsonify({'error': 'Failed to list files'}), 500
+
+@app.route('/api/process_file', methods=['GET'])
+def process_file():
+    file_name = request.args.get('name')
+    if not file_name:
+        return jsonify({'error': 'File name is required'}), 400
+
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], file_name)
+    if not os.path.exists(file_path):
+        return jsonify({'error': 'File not found'}), 404
+
+    try:
+        found_keywords = {}
+        keywords = load_keywords()
+        app.logger.error(keywords)
+        
+        if file_name.lower().endswith('.pdf'):
+            doc = fitz.open(file_path)
+            content = ''
+            for page in doc:
+                content += page.get_text()
+            doc.close()
+
+            found_keywords = {keyword: content.lower().count(keyword.lower()) for keyword in keywords}
+        
+        return jsonify({
+            'file_name': file_name,
+            'found_keywords': found_keywords
+        })
+    except Exception as e:
+        app.logger.error(f"Error processing file: {e}")
+        return jsonify({'error': 'Failed to process the file'}), 500
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')  # Make sure Flask listens on all interfaces

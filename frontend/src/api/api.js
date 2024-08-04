@@ -65,3 +65,13 @@ export const getFiles = async () => {
     }
     return response.json();
 };
+
+export const processFile = async (fileName) => {
+    const response = await fetch(`${API_URL}/process_file?name=${encodeURIComponent(fileName)}`, {
+        method: 'GET',
+    });
+    if (!response.ok) {
+        throw new Error('Failed to process file');
+    }
+    return response.json();
+};
