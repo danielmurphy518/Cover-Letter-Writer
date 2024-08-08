@@ -24,3 +24,4 @@
 
 # Backend uploads folder
 /backend/uploads
+/backend/__pycache__
