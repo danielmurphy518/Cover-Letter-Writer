@@ -1,19 +1,20 @@
-// src/components/ModalForm.js
 import React, { useState } from 'react';
 import { Modal, Button, Box } from '@mui/material';
 import Form from './Form';
+import { createLink } from '../api/api';
 import '../App.css'; // Ensure the path is correct
 
-const ModalForm = () => {
+const ModalForm = ({ addLink }) => {
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const handleFormSubmit = (url) => {
+    const handleFormSubmit = async (url) => {
         console.log('Submitted URL:', url);
-        // You can add further processing logic here
-        handleClose(); // Close the modal after form submission
+        const newLink = await createLink(url);
+        addLink(newLink);  // Update the links state in the parent component
+        handleClose();  // Close the modal after form submission
     };
 
     return (

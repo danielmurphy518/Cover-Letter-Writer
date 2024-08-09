@@ -75,3 +75,27 @@ export const processFile = async (fileName) => {
     }
     return response.json();
 };
+
+export const createLink = async (link) => {
+    const response = await fetch(`${API_URL}/links`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ link }),
+    });
+    if (!response.ok) {
+        throw new Error('Failed to create link');
+    }
+    return response.json();
+};
+
+export const fetchLinks = async () => {
+    const response = await fetch(`${API_URL}/links`, {
+        method: 'GET',
+    });
+    if (!response.ok) {
+        throw new Error('Failed to fetch links');
+    }
+    return response.json();
+};

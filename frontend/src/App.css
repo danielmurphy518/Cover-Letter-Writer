@@ -1,51 +1,75 @@
-/* app.css */
+/* Base styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+}
 
-.App {
+/* Top bar */
+.top-bar {
+  background-color: #333;
+  color: white;
+  padding: 1rem;
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  position: fixed; /* Ensure it stays at the top */
+  width: 100%; /* Full width of the viewport */
+  top: 0; /* Stick to the top of the viewport */
+  z-index: 1000; /* Make sure it stays above other content */
+}
+
+.top-bar h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+/* Main container to hold sidebar and content */
+.main-container {
+  display: flex;
+  flex-direction: column; /* Stack top-bar and content-wrapper vertically */
+  height: 100vh; /* Full viewport height */
+}
+
+/* Content wrapper to hold sidebar and content area */
+.content-wrapper {
+  display: flex;
+  flex: 1; /* Take up remaining space after top-bar */
+  margin-top: 50px; /* Push down content to make room for top-bar */
+}
+
+/* Sidebar styles */
+.sidebar-container {
+  width: 250px;
+  background-color: #2c3e50;
+  padding: 1rem;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-container .link-list {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.sidebar-container .link-item {
+  padding: 0.5rem 0;
+  cursor: pointer;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.sidebar-container .link-item:hover {
+  background-color: #34495e;
 }
 
-.main-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  max-width: 1440px;
-  margin: 0 auto;
-  min-height: 100vh;
-  text-align: center;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Content area styles */
+.content-container {
+  flex: 1; /* Take up remaining space */
+  padding: 2rem;
+  background-color: #ecf0f1;
+  overflow-y: auto;
 }
