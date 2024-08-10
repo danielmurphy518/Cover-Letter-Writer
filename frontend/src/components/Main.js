@@ -37,9 +37,9 @@ const Main = () => {
                 <Typography variant="h4">Cover Letter Processor</Typography>
             </div>
             <div className="content-wrapper">
-                <Sidebar links={links} onJobClick={handleJobClick} />
+                <Sidebar links={links} onJobClick={handleJobClick} addLink={addLink} />
                 <div className="content-container">
-                    <ModalForm addLink={addLink} />
+                    
                     {selectedJob && (
                         <div className="job-details">
                             <Typography variant="h4">{selectedJob.title}</Typography>

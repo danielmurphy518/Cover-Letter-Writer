@@ -28,25 +28,11 @@ const ModalForm = ({ addLink }) => {
                 aria-labelledby="modal-title"
                 aria-describedby="modal-description"
             >
-                <Box
-                    sx={{
-                        position: 'absolute',
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
-                        width: '90%',
-                        maxWidth: 600,
-                        bgcolor: 'background.paper',
-                        boxShadow: 24,
-                        p: 4,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    <h2 id="modal-title">Submit URL</h2>
-                    <Form onSubmit={handleFormSubmit} />
-                </Box>
+                <div className="modal-container">
+                    <div className="form-wrapper">
+                        <Form onSubmit={handleFormSubmit} />
+                    </div>
+                </div>
             </Modal>
         </>
     );

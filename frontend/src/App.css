@@ -4,6 +4,7 @@ body, html {
   padding: 0;
   height: 100%;
   font-family: Arial, sans-serif;
+  overflow: hidden; /* Prevent scrolling */
 }
 
 /* Top bar */
@@ -31,13 +32,13 @@ body, html {
   display: flex;
   flex-direction: column; /* Stack top-bar and content-wrapper vertically */
   height: 100vh; /* Full viewport height */
+  padding-top: 73px; /* Create space for the fixed top-bar */
 }
 
 /* Content wrapper to hold sidebar and content area */
 .content-wrapper {
   display: flex;
   flex: 1; /* Take up remaining space after top-bar */
-  margin-top: 50px; /* Push down content to make room for top-bar */
 }
 
 /* Sidebar styles */
@@ -48,6 +49,9 @@ body, html {
   color: white;
   display: flex;
   flex-direction: column;
+  padding-top: 1rem; /* Ensure content does not overlap with the top-bar */
+  overflow-y: auto; /* Enable vertical scrolling only within the sidebar */
+  max-height: calc(100vh - 73px); /* Limit the height of the sidebar to the viewport height minus the top-bar height */
 }
 
 .sidebar-container .link-list {
@@ -70,6 +74,75 @@ body, html {
 .content-container {
   flex: 1; /* Take up remaining space */
   padding: 2rem;
-  background-color: #ecf0f1;
-  overflow-y: auto;
+  background-color: #719ba5;
+  overflow-y: auto; /* Ensure this doesn't scroll */
+}
+
+/* Center the form container */
+form {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #f7f7f7; /* Light grey background for the form */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Style the text field */
+.MuiTextField-root {
+  width: 100%; /* Ensure text field takes full width */
+}
+
+/* Style the button */
+.MuiButton-containedPrimary {
+  width: 100%; /* Ensure the button takes full width */
+  padding: 0.75rem; /* Add padding for a larger clickable area */
+  font-size: 1rem; /* Slightly larger font size */
+  text-transform: none; /* Disable uppercase transformation */
+  background-color: #007bff; /* Primary blue color */
+  border-radius: 4px; /* Rounded corners */
+}
+
+.MuiButton-containedPrimary:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Add transition effects */
+form input, form button {
+  transition: all 0.3s ease; /* Smooth transition for input and button */
+}
+
+form input:focus {
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.6); /* Blue glow on focus */
+}
+
+form button:hover {
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Blue glow on hover */
+}
+
+.modal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 1rem;
+}
+
+/* Form wrapper to add some padding around the form */
+.form-wrapper {
+  background-color: transparent; /* Ensure no background color */
+  padding: 2rem; /* Adjust padding as necessary */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: none; /* Remove any box shadow */
+  width: 400px; /* Set the desired width of the form */
+  max-width: 90%; /* Ensure it doesn't overflow on smaller screens */
+}
+
+.sidebar-container .link-list .link-item:last-child {
+  padding-bottom: 1rem; /* Adjust the padding as needed */
 }
