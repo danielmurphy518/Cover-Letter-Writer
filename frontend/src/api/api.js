@@ -99,3 +99,23 @@ export const fetchLinks = async () => {
     }
     return response.json();
 };
+
+export const exportLinks = async () => {
+    console.log("test")
+    const response = await fetch(`${API_URL}/export`, {
+        method: 'GET',
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to export links');
+    }
+    console.log(response)
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(new Blob([blob]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'links.json');
+    document.body.appendChild(link);
+    link.click();
+    link.parentNode.removeChild(link);
+};

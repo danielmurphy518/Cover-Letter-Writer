@@ -1,5 +1,5 @@
-import logging
-from flask import Flask, jsonify, request
+import json
+from flask import Flask, jsonify, request, send_file, Response
 from flask_cors import CORS
 import requests
 from bs4 import BeautifulSoup
@@ -129,6 +129,22 @@ def upload_file():
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
         file.save(file_path)
         return jsonify({'message': 'File uploaded successfully', 'file_path': file_path})
+
+@app.route('/api/export', methods=['GET'])
+def download_links_json():
+    # Convert the links list to JSON string
+    links_json = json.dumps(links, indent=4)
+    
+    # Create a response object with the JSON data as a file
+    response = Response(
+        links_json,
+        mimetype='application/json',
+        headers={'Content-Disposition': 'attachment;filename=links.json'}
+    )
+
+    return response
+
+
 
 @app.route('/api/get_files', methods=['GET'])
 def get_files():

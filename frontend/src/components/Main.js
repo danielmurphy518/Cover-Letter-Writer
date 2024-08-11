@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Typography } from '@mui/material';
+import { Typography, Button, Box } from '@mui/material';
+import SaveAltIcon from '@mui/icons-material/SaveAlt';
+import UploadIcon from '@mui/icons-material/Upload';
 import ModalForm from './ModalForm';
 import Sidebar from './Sidebar';
-import { fetchLinks } from '../api/api';
+import { fetchLinks, exportLinks } from '../api/api';
 import '../App.css';
 
 const Main = () => {
@@ -31,15 +33,40 @@ const Main = () => {
         setSelectedJob(job); // Set the selected job when clicked
     };
 
+    const handleExport = () => {
+        exportLinks().catch(error => {
+            console.error('Error exporting links:', error);
+        });
+    };
+
     return (
         <div className="main-container">
-            <div className="top-bar">
-                <Typography variant="h4">Cover Letter Processor</Typography>
+            <div className="top-bar" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <Typography variant="h4" style={{ flexGrow: 1, textAlign: 'center' }}>
+                    Cover Letter Processor
+                </Typography>
+                <Box>
+                <Button
+            variant="contained"
+            startIcon={<SaveAltIcon />}
+            size="small"
+            style={{ marginRight: '8px' }}
+            onClick={handleExport}  // Trigger export on click
+        >
+            Save
+        </Button>
+                    <Button
+                        variant="contained"
+                        endIcon={<UploadIcon />}
+                        size="small"
+                    >
+                        Upload
+                    </Button>
+                </Box>
             </div>
             <div className="content-wrapper">
                 <Sidebar links={links} onJobClick={handleJobClick} addLink={addLink} />
                 <div className="content-container">
-                    
                     {selectedJob && (
                         <div className="job-details">
                             <Typography variant="h4">{selectedJob.title}</Typography>
