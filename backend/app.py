@@ -116,19 +116,31 @@ def delete_item(item_id):
     items = [i for i in items if i['id'] != item_id]
     return jsonify({'message': 'Item deleted'})
 
-@app.route('/api/upload_file', methods=['POST'])
+@app.route('/api/upload', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
         return jsonify({'error': 'No file part'}), 400
-
     file = request.files['file']
     if file.filename == '':
         return jsonify({'error': 'No selected file'}), 400
 
-    if file:
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-        file.save(file_path)
-        return jsonify({'message': 'File uploaded successfully', 'file_path': file_path})
+    # Assuming the uploaded file is a JSON file
+    try:
+        # Read the file and parse the JSON content
+        file_content = file.read().decode('utf-8')
+        json_data = json.loads(file_content)
+
+        # Ensure that the JSON data is a list
+        if isinstance(json_data, list):
+            global links
+            links = json_data  # Update the links variable with the parsed JSON data
+        else:
+            return jsonify({'error': 'Invalid JSON format'}), 400
+
+        return get_links() 
+    except Exception as e:
+        app.logger.error(f"Error processing file: {e}")
+        return jsonify({'error': 'Failed to process the file'}), 500
 
 @app.route('/api/export', methods=['GET'])
 def download_links_json():

@@ -119,3 +119,26 @@ export const exportLinks = async () => {
     link.click();
     link.parentNode.removeChild(link);
 };
+
+export const uploadLinks = async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+        const response = await fetch(`${API_URL}/upload`, {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to upload file');
+        }
+
+        const data = await response.json();
+        console.log(data)
+        return data; // Return the updated links from the server
+    } catch (error) {
+        console.error('Error uploading file:', error);
+        throw error;
+    }
+};
