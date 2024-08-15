@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Typography, Button, Box } from '@mui/material';
+import { Typography, Button, Box, IconButton } from '@mui/material';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import UploadIcon from '@mui/icons-material/Upload';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import Sidebar from './Sidebar';
 import { fetchLinks, exportLinks, uploadLinks } from '../api/api';
 import '../App.css';
- const Main = () => {
+
+const Main = () => {
     const [links, setLinks] = useState([]);
     const [selectedJob, setSelectedJob] = useState(null);
     const fileInputRef = useRef(null); // Reference to the hidden file input
@@ -46,7 +48,6 @@ import '../App.css';
         if (file) {
             try {
                 const updatedLinks = await uploadLinks(file); // Upload the file and get the updated links
-                console.log(updatedLinks)
                 setLinks(updatedLinks); // Reset the state of links with the updated links
                 console.log('File uploaded successfully and links updated');
             } catch (error) {
@@ -92,14 +93,29 @@ import '../App.css';
                 <div className="content-container">
                     {selectedJob && (
                         <div className="job-details">
-                            <Typography variant="h4">{selectedJob.title}</Typography>
-                            <Typography variant="subtitle1">{selectedJob.link}</Typography>
-                            <div className="keywords-container">
-                                <Typography variant="h6">Keywords Found:</Typography>
-                                <ul>
+                            <Typography variant="h4" align="center" style={{ marginBottom: '16px' }}>
+                                {selectedJob.title}
+                            </Typography>
+                            <Box textAlign="center" mb={2}>
+                                <Button
+                                    variant="outlined"
+                                    color="primary"
+                                    endIcon={<OpenInNewIcon />}
+                                    onClick={() => window.open(selectedJob.link, '_blank')}
+                                >
+                                    Open Link
+                                </Button>
+                            </Box>
+                            <div className="keywords-container" style={{ textAlign: 'center' }}>
+                                <Typography variant="h6" gutterBottom>
+                                    Keywords Found:
+                                </Typography>
+                                <ul style={{ listStyleType: 'none', padding: 0 }}>
                                     {Object.entries(selectedJob.found_keywords).map(([keyword, count]) => (
-                                        <li key={keyword}>
-                                            {keyword}: {count}
+                                        <li key={keyword} style={{ marginBottom: '8px' }}>
+                                            <Typography variant="body1">
+                                                <strong>{keyword}</strong>: {count}
+                                            </Typography>
                                         </li>
                                     ))}
                                 </ul>
