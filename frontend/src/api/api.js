@@ -142,3 +142,27 @@ export const uploadLinks = async (file) => {
         throw error;
     }
 };
+
+export const getRequirements = async () => {
+    const response = await fetch(`${API_URL}/get_requirements`, {
+        method: 'GET',
+    });
+    if (!response.ok) {
+        throw new Error('Failed to fetch requirements.txt');
+    }
+    return response.json();
+};
+
+export const saveRequirements = async (content) => {
+    const response = await fetch(`${API_URL}/save_requirements`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ content }),
+    });
+    if (!response.ok) {
+        throw new Error('Failed to save requirements.txt');
+    }
+    return response.json();
+};

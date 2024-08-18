@@ -3,13 +3,16 @@ import { Typography, Button, Box, IconButton } from '@mui/material';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import UploadIcon from '@mui/icons-material/Upload';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import SettingsIcon from '@mui/icons-material/Settings';
 import Sidebar from './Sidebar';
+import SettingsModal from './SettingsModal';
 import { fetchLinks, exportLinks, uploadLinks } from '../api/api';
 import '../App.css';
 
 const Main = () => {
     const [links, setLinks] = useState([]);
     const [selectedJob, setSelectedJob] = useState(null);
+    const [settingsOpen, setSettingsOpen] = useState(false); // State to control modal visibility
     const fileInputRef = useRef(null); // Reference to the hidden file input
 
     useEffect(() => {
@@ -34,7 +37,7 @@ const Main = () => {
     };
 
     const handleExport = () => {
-        exportLinks().catch(error => {
+        exportLinks().catch((error) => {
             console.error('Error exporting links:', error);
         });
     };
@@ -56,9 +59,20 @@ const Main = () => {
         }
     };
 
+    const handleSettingsOpen = () => {
+        setSettingsOpen(true);
+    };
+
+    const handleSettingsClose = () => {
+        setSettingsOpen(false);
+    };
+
     return (
         <div className="main-container">
             <div className="top-bar" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <IconButton onClick={handleSettingsOpen} style={{ marginRight: 'auto' }}>
+                    <SettingsIcon />
+                </IconButton>
                 <Typography variant="h4" style={{ flexGrow: 1, textAlign: 'center' }}>
                     Cover Letter Processor
                 </Typography>
@@ -124,6 +138,7 @@ const Main = () => {
                     )}
                 </div>
             </div>
+            <SettingsModal open={settingsOpen} onClose={handleSettingsClose} />
         </div>
     );
 };

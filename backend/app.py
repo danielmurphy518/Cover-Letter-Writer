@@ -167,37 +167,36 @@ def get_files():
         app.logger.error(f"Error listing files: {e}")
         return jsonify({'error': 'Failed to list files'}), 500
 
-@app.route('/api/process_file', methods=['GET'])
-def process_file():
-    file_name = request.args.get('name')
-    if not file_name:
-        return jsonify({'error': 'File name is required'}), 400
-
-    file_path = os.path.join(app.config['UPLOAD_FOLDER'], file_name)
-    if not os.path.exists(file_path):
-        return jsonify({'error': 'File not found'}), 404
-
+@app.route('/api/get_requirements', methods=['GET'])
+def get_requirements():
     try:
-        found_keywords = {}
-        keywords = load_keywords()
-        app.logger.error(keywords)
-        
-        if file_name.lower().endswith('.pdf'):
-            doc = fitz.open(file_path)
-            content = ''
-            for page in doc:
-                content += page.get_text()
-            doc.close()
+        with open('keywords.txt', 'r') as file:
+            content = file.read()
+        return jsonify({"content": content})
+    except FileNotFoundError:
+        return jsonify(404, description="File not found")
 
-            found_keywords = {keyword: content.lower().count(keyword.lower()) for keyword in keywords}
-        
-        return jsonify({
-            'file_name': file_name,
-            'found_keywords': found_keywords
-        })
+@app.route('/api/save_requirements', methods=['POST'])
+def save_requirements():
+    content = request.json.get('content')
+    if content is None:
+        return jsonify({"error": "No content provided"}), 400
+    try:
+        with open('keywords.txt', 'w') as file:
+            file.write(content)
+        return jsonify({"message": "File saved successfully"})
     except Exception as e:
-        app.logger.error(f"Error processing file: {e}")
-        return jsonify({'error': 'Failed to process the file'}), 500
+        return jsonify({"error": str(e)}), 500
+    
+@app.route('/api/requirements', methods=['POST'])
+def update_requirements():
+    try:
+        content = request.json.get('content')
+        with open('keywords.txt', 'w') as file:
+            file.write(content)
+        return jsonify({'message': 'File updated successfully'}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')  # Make sure Flask listens on all interfaces
