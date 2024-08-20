@@ -6,19 +6,6 @@ import ModalForm from './ModalForm';
 const Sidebar = ({ links, onJobClick, addLink }) => {
     return (
         <div className="sidebar-container">
-<Box 
-  className="add-link-box" 
-  sx={{
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: '16px',
-    borderBottom: '2px solid',
-    borderColor: 'primary.main',
-  }}
->
-  <ModalForm addLink={addLink} />
-</Box>
             <List className="link-list">
                 {links.map((link, index) => (
                     <ListItem

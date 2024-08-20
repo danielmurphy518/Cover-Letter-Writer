@@ -1,0 +1,22 @@
+/* Container holding sidebar and mainbar */
+.container {
+    display: flex;
+    height: 100vh; /* Full height of the viewport */
+}
+
+/* Sidebar styles */
+.sidebar {
+    width: 400px; /* Fixed width for the sidebar */
+    background-color: #f1f2f7; /* Background color */
+    padding: 20px;
+    border-right: 1px solid #ccc; /* Border on the right side */
+    overflow-y: auto; /* Enable vertical scrolling in the sidebar */
+}
+
+/* Main content area styles */
+.mainbar {
+    flex-grow: 1; /* Take up remaining space */
+    background-color: #ffffff; /* Background color */
+    padding: 20px;
+    overflow-y: auto; /* Enable vertical scrolling in the main content area */
+}

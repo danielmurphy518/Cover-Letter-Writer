@@ -1,144 +1,56 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Typography, Button, Box, IconButton } from '@mui/material';
-import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import UploadIcon from '@mui/icons-material/Upload';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import SettingsIcon from '@mui/icons-material/Settings';
-import Sidebar from './Sidebar';
-import SettingsModal from './SettingsModal';
-import { fetchLinks, exportLinks, uploadLinks } from '../api/api';
-import '../App.css';
+import React from 'react';
+import '../Apptest.css';
 
 const Main = () => {
-    const [links, setLinks] = useState([]);
-    const [selectedJob, setSelectedJob] = useState(null);
-    const [settingsOpen, setSettingsOpen] = useState(false); // State to control modal visibility
-    const fileInputRef = useRef(null); // Reference to the hidden file input
-
-    useEffect(() => {
-        const fetchInitialLinks = async () => {
-            try {
-                const linksFromServer = await fetchLinks();
-                setLinks(linksFromServer);
-            } catch (error) {
-                console.error('Failed to fetch links:', error);
-            }
-        };
-
-        fetchInitialLinks();
-    }, []);
-
-    const addLink = (newLink) => {
-        setLinks((prevLinks) => [...prevLinks, newLink]);
-    };
-
-    const handleJobClick = (job) => {
-        setSelectedJob(job);
-    };
-
-    const handleExport = () => {
-        exportLinks().catch((error) => {
-            console.error('Error exporting links:', error);
-        });
-    };
-
-    const handleUploadClick = () => {
-        fileInputRef.current.click(); // Trigger the file input click
-    };
-
-    const handleFileChange = async (event) => {
-        const file = event.target.files[0]; // Get the selected file
-        if (file) {
-            try {
-                const updatedLinks = await uploadLinks(file); // Upload the file and get the updated links
-                setLinks(updatedLinks); // Reset the state of links with the updated links
-                console.log('File uploaded successfully and links updated');
-            } catch (error) {
-                console.error('Failed to upload file:', error);
-            }
-        }
-    };
-
-    const handleSettingsOpen = () => {
-        setSettingsOpen(true);
-    };
-
-    const handleSettingsClose = () => {
-        setSettingsOpen(false);
-    };
-
     return (
-        <div className="main-container">
-            <div className="top-bar" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <IconButton onClick={handleSettingsOpen} style={{ marginRight: 'auto' }}>
-                    <SettingsIcon />
-                </IconButton>
-                <Typography variant="h4" style={{ flexGrow: 1, textAlign: 'center' }}>
-                    Cover Letter Processor
-                </Typography>
-                <Box>
-                    <Button
-                        variant="contained"
-                        startIcon={<SaveAltIcon />}
-                        size="small"
-                        style={{ marginRight: '8px' }}
-                        onClick={handleExport}
-                    >
-                        Save
-                    </Button>
-                    <Button
-                        variant="contained"
-                        endIcon={<UploadIcon />}
-                        size="small"
-                        onClick={handleUploadClick} // Trigger file input click
-                    >
-                        Upload
-                    </Button>
-                    <input
-                        type="file"
-                        ref={fileInputRef}
-                        style={{ display: 'none' }} // Hidden file input
-                        onChange={handleFileChange}
-                    />
-                </Box>
+        <div className="container">
+            <div className="sidebar">
+                <h2>Sidebar</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Suspendisse potenti.</p>
+                <p>Donec auctor sapien et quam consectetur, et pulvinar lorem viverra. Nullam fringilla dictum odio, id interdum leo iaculis a.</p>
+                <p>Sed consectetur sapien nec turpis pellentesque, ut facilisis ipsum blandit. Aenean ut lacinia purus, eget scelerisque justo.</p>
+                <p>Maecenas vel nulla at quam mollis posuere. Phasellus fermentum, arcu et dapibus aliquet, nulla nisl sodales tortor, in feugiat nisi risus eget eros.</p>
+                <p>Etiam venenatis ligula et leo aliquet, sit amet laoreet dolor tempus. Donec varius, erat id condimentum cursus, arcu augue venenatis ante, nec tincidunt nisi neque et ligula.</p>
+                <p>Praesent ultricies sapien a sem consectetur, non varius dolor scelerisque. Integer ac consectetur mauris. Nulla facilisi.</p>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Suspendisse potenti.</p>
+                <p>Donec auctor sapien et quam consectetur, et pulvinar lorem viverra. Nullam fringilla dictum odio, id interdum leo iaculis a.</p>
+                <p>Sed consectetur sapien nec turpis pellentesque, ut facilisis ipsum blandit. Aenean ut lacinia purus, eget scelerisque justo.</p>
+                <p>Maecenas vel nulla at quam mollis posuere. Phasellus fermentum, arcu et dapibus aliquet, nulla nisl sodales tortor, in feugiat nisi risus eget eros.</p>
+                <p>Etiam venenatis ligula et leo aliquet, sit amet laoreet dolor tempus. Donec varius, erat id condimentum cursus, arcu augue venenatis ante, nec tincidunt nisi neque et ligula.</p>
+                <p>Praesent ultricies sapien a sem consectetur, non varius dolor scelerisque. Integer ac consectetur mauris. Nulla facilisi.</p>
             </div>
-            <div className="content-wrapper">
-                <Sidebar links={links} onJobClick={handleJobClick} addLink={addLink} />
-                <div className="content-container">
-                    {selectedJob && (
-                        <div className="job-details">
-                            <Typography variant="h4" align="center" style={{ marginBottom: '16px' }}>
-                                {selectedJob.title}
-                            </Typography>
-                            <Box textAlign="center" mb={2}>
-                                <Button
-                                    variant="outlined"
-                                    color="primary"
-                                    endIcon={<OpenInNewIcon />}
-                                    onClick={() => window.open(selectedJob.link, '_blank')}
-                                >
-                                    Open Link
-                                </Button>
-                            </Box>
-                            <div className="keywords-container" style={{ textAlign: 'center' }}>
-                                <Typography variant="h6" gutterBottom>
-                                    Keywords Found:
-                                </Typography>
-                                <ul style={{ listStyleType: 'none', padding: 0 }}>
-                                    {Object.entries(selectedJob.found_keywords).map(([keyword, count]) => (
-                                        <li key={keyword} style={{ marginBottom: '8px' }}>
-                                            <Typography variant="body1">
-                                                <strong>{keyword}</strong>: {count}
-                                            </Typography>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
-                    )}
-                </div>
+            <div className="mainbar">
+                <h2>Mainbar</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ut dolor et augue interdum dictum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Phasellus non magna volutpat, hendrerit leo non, auctor massa. Nam tincidunt, erat vel egestas tincidunt, arcu libero viverra leo, a suscipit dolor lorem ut dui. Vivamus vel nunc sed libero eleifend scelerisque.</p>
+                <p>Suspendisse potenti. Nulla aliquet magna at velit dapibus, a viverra dolor condimentum. Aliquam erat volutpat. Cras id sapien vel eros facilisis convallis. Sed dapibus vestibulum turpis, non viverra purus. Donec id mi id libero elementum faucibus. Nam sit amet malesuada augue.</p>
+                <p>Donec vel ex eget odio vulputate condimentum id nec nisi. Praesent et bibendum sapien. Vestibulum tincidunt nisi sed leo tristique, in mollis risus tincidunt.</p>
+                <p>Aliquam id fermentum libero, et scelerisque turpis. In hac habitasse platea dictumst. Vestibulum fermentum quam nec erat facilisis, a varius nisi ullamcorper. Nam vitae sem metus.</p>
+                <p>Phasellus eget massa a nisi pellentesque fermentum vel eget est. Integer tristique laoreet dolor, nec elementum ligula blandit ut. Mauris a tortor et ligula pharetra vulputate. Proin ac ante et felis aliquet consequat. Nullam et enim ut mauris lacinia tempor. Etiam vel tincidunt nulla.</p>
+                <p>In sit amet magna sed erat euismod porttitor ac a purus. Nulla facilisi. Cras nec lectus augue. Vivamus pretium ante vel elit gravida, eget scelerisque lectus hendrerit. Sed sit amet ex nec lorem suscipit ultricies. Nunc euismod velit in mauris auctor, id sollicitudin est interdum. Curabitur eget diam purus.</p>
+                <p>Quisque non libero eget metus ultrices tincidunt. Nam non nisi nulla. Donec id eros massa. Nam interdum mauris id fermentum dapibus. Pellentesque vehicula magna sed lectus faucibus dignissim. Curabitur nec eros id ex convallis faucibus in id ipsum.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ut dolor et augue interdum dictum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Phasellus non magna volutpat, hendrerit leo non, auctor massa. Nam tincidunt, erat vel egestas tincidunt, arcu libero viverra leo, a suscipit dolor lorem ut dui. Vivamus vel nunc sed libero eleifend scelerisque.</p>
+                <p>Suspendisse potenti. Nulla aliquet magna at velit dapibus, a viverra dolor condimentum. Aliquam erat volutpat. Cras id sapien vel eros facilisis convallis. Sed dapibus vestibulum turpis, non viverra purus. Donec id mi id libero elementum faucibus. Nam sit amet malesuada augue.</p>
+                <p>Donec vel ex eget odio vulputate condimentum id nec nisi. Praesent et bibendum sapien. Vestibulum tincidunt nisi sed leo tristique, in mollis risus tincidunt.</p>
+                <p>Aliquam id fermentum libero, et scelerisque turpis. In hac habitasse platea dictumst. Vestibulum fermentum quam nec erat facilisis, a varius nisi ullamcorper. Nam vitae sem metus.</p>
+                <p>Phasellus eget massa a nisi pellentesque fermentum vel eget est. Integer tristique laoreet dolor, nec elementum ligula blandit ut. Mauris a tortor et ligula pharetra vulputate. Proin ac ante et felis aliquet consequat. Nullam et enim ut mauris lacinia tempor. Etiam vel tincidunt nulla.</p>
+                <p>In sit amet magna sed erat euismod porttitor ac a purus. Nulla facilisi. Cras nec lectus augue. Vivamus pretium ante vel elit gravida, eget scelerisque lectus hendrerit. Sed sit amet ex nec lorem suscipit ultricies. Nunc euismod velit in mauris auctor, id sollicitudin est interdum. Curabitur eget diam purus.</p>
+                <p>Quisque non libero eget metus ultrices tincidunt. Nam non nisi nulla. Donec id eros massa. Nam interdum mauris id fermentum dapibus. Pellentesque vehicula magna sed lectus faucibus dignissim. Curabitur nec eros id ex convallis faucibus in id ipsum.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ut dolor et augue interdum dictum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Phasellus non magna volutpat, hendrerit leo non, auctor massa. Nam tincidunt, erat vel egestas tincidunt, arcu libero viverra leo, a suscipit dolor lorem ut dui. Vivamus vel nunc sed libero eleifend scelerisque.</p>
+                <p>Suspendisse potenti. Nulla aliquet magna at velit dapibus, a viverra dolor condimentum. Aliquam erat volutpat. Cras id sapien vel eros facilisis convallis. Sed dapibus vestibulum turpis, non viverra purus. Donec id mi id libero elementum faucibus. Nam sit amet malesuada augue.</p>
+                <p>Donec vel ex eget odio vulputate condimentum id nec nisi. Praesent et bibendum sapien. Vestibulum tincidunt nisi sed leo tristique, in mollis risus tincidunt.</p>
+                <p>Aliquam id fermentum libero, et scelerisque turpis. In hac habitasse platea dictumst. Vestibulum fermentum quam nec erat facilisis, a varius nisi ullamcorper. Nam vitae sem metus.</p>
+                <p>Phasellus eget massa a nisi pellentesque fermentum vel eget est. Integer tristique laoreet dolor, nec elementum ligula blandit ut. Mauris a tortor et ligula pharetra vulputate. Proin ac ante et felis aliquet consequat. Nullam et enim ut mauris lacinia tempor. Etiam vel tincidunt nulla.</p>
+                <p>In sit amet magna sed erat euismod porttitor ac a purus. Nulla facilisi. Cras nec lectus augue. Vivamus pretium ante vel elit gravida, eget scelerisque lectus hendrerit. Sed sit amet ex nec lorem suscipit ultricies. Nunc euismod velit in mauris auctor, id sollicitudin est interdum. Curabitur eget diam purus.</p>
+                <p>Quisque non libero eget metus ultrices tincidunt. Nam non nisi nulla. Donec id eros massa. Nam interdum mauris id fermentum dapibus. Pellentesque vehicula magna sed lectus faucibus dignissim. Curabitur nec eros id ex convallis faucibus in id ipsum.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ut dolor et augue interdum dictum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Phasellus non magna volutpat, hendrerit leo non, auctor massa. Nam tincidunt, erat vel egestas tincidunt, arcu libero viverra leo, a suscipit dolor lorem ut dui. Vivamus vel nunc sed libero eleifend scelerisque.</p>
+                <p>Suspendisse potenti. Nulla aliquet magna at velit dapibus, a viverra dolor condimentum. Aliquam erat volutpat. Cras id sapien vel eros facilisis convallis. Sed dapibus vestibulum turpis, non viverra purus. Donec id mi id libero elementum faucibus. Nam sit amet malesuada augue.</p>
+                <p>Donec vel ex eget odio vulputate condimentum id nec nisi. Praesent et bibendum sapien. Vestibulum tincidunt nisi sed leo tristique, in mollis risus tincidunt.</p>
+                <p>Aliquam id fermentum libero, et scelerisque turpis. In hac habitasse platea dictumst. Vestibulum fermentum quam nec erat facilisis, a varius nisi ullamcorper. Nam vitae sem metus.</p>
+                <p>Phasellus eget massa a nisi pellentesque fermentum vel eget est. Integer tristique laoreet dolor, nec elementum ligula blandit ut. Mauris a tortor et ligula pharetra vulputate. Proin ac ante et felis aliquet consequat. Nullam et enim ut mauris lacinia tempor. Etiam vel tincidunt nulla.</p>
+                <p>In sit amet magna sed erat euismod porttitor ac a purus. Nulla facilisi. Cras nec lectus augue. Vivamus pretium ante vel elit gravida, eget scelerisque lectus hendrerit. Sed sit amet ex nec lorem suscipit ultricies. Nunc euismod velit in mauris auctor, id sollicitudin est interdum. Curabitur eget diam purus.</p>
+                <p>Quisque non libero eget metus ultrices tincidunt. Nam non nisi nulla. Donec id eros massa. Nam interdum mauris id fermentum dapibus. Pellentesque vehicula magna sed lectus faucibus dignissim. Curabitur nec eros id ex convallis faucibus in id ipsum.</p>
             </div>
-            <SettingsModal open={settingsOpen} onClose={handleSettingsClose} />
         </div>
     );
 };

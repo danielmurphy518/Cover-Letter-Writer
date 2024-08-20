@@ -19,9 +19,6 @@ const ModalForm = ({ addLink }) => {
 
     return (
         <>
-            <Button variant="contained" color="primary" onClick={handleOpen}>
-                Add a Job Link
-            </Button>
             <Modal
                 open={open}
                 onClose={handleClose}
