@@ -25,6 +25,7 @@ body, html {
 .top-bar h1 {
   margin: 0;
   font-size: 1.5rem;
+  color: #5A67BA;
 }
 
 /* Main container to hold sidebar and content */
@@ -146,3 +147,4 @@ form button:hover {
 .sidebar-container .link-list .link-item:last-child {
   padding-bottom: 1rem; /* Adjust the padding as needed */
 }
+

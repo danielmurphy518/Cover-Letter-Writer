@@ -1,8 +1,7 @@
-// src/components/Form.js
 import React, { useState } from 'react';
-import { TextField, Button, Typography } from '@mui/material';
+import { TextField, Button } from '@mui/material';
 
-const Form = ({ onSubmit }) => {
+const Form = ({ onSubmit, onClose }) => {
     const [url, setUrl] = useState('');
 
     const handleSubmit = (event) => {
@@ -23,9 +22,14 @@ const Form = ({ onSubmit }) => {
                 fullWidth
                 required
             />
-            <Button type="submit" variant="contained" color="primary">
-                Submit
-            </Button>
+            <div style={{ display: 'flex', gap: '1rem', width: '100%' }}>
+                <Button type="submit" variant="contained" color="primary" style={{ flex: 1 }}>
+                    Submit
+                </Button>
+                <Button type="button" variant="outlined" color="secondary" onClick={onClose} style={{ flex: 1 }}>
+                    Cancel
+                </Button>
+            </div>
         </form>
     );
 };

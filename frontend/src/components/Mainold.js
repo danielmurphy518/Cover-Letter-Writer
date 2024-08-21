@@ -13,7 +13,7 @@ const Main = () => {
     const [links, setLinks] = useState([]);
     const [selectedJob, setSelectedJob] = useState(null);
     const [settingsOpen, setSettingsOpen] = useState(false); // State to control modal visibility
-    const fileInputRef = useRef(null); // Reference to the hidden file input
+    const fileInputRef = useRef(null); 
 
     useEffect(() => {
         const fetchInitialLinks = async () => {
