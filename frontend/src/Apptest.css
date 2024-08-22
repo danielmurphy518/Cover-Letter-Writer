@@ -50,19 +50,64 @@
 
 .mainbar {
     flex: 1;
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 
-.sidebar-content {
-    padding-top: 20px
+.job-details-header {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    padding: 8px 16px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    z-index: 2;
+    box-sizing: border-box;
+    height: 110px; /* Fixed height for the job details header */
+}
+
+.settings-button {
+    margin-left: auto; /* Align button to the right */
 }
 
 .job-details-container {
-    padding: 40px;
+    flex: 1; /* Allow the container to take the available space */
+    color: #1F384C;
+    box-sizing: border-box;
+    overflow: auto; /* Handle overflow if content is too large */
+}
+
+
+.job-details-placeholder {
+    padding: 60px 20px;
     color: #1F384C;
 }
 
-.job-details-placeholder {
-    padding: 20px;
-    color: #1F384C;
+.job-keywords-container {
+    margin-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.job-keyword-chip {
+    font-size: 14px;
+    padding: 4px;
+    border-color: blue;
+    color: blue;
+    background-color: rgba(0, 0, 255, 0.1); /* Light blue background */
+}
+
+.job-content-container {
+    display: flex; /* Use flexbox layout */
+    flex-direction: column; /* Stack child elements vertically */
+    align-items: center; /* Center child elements horizontally */
+    padding: 16px;
+    box-sizing: border-box;
+    height: calc(100vh - 60px); /* Adjust height to fit within the viewport, minus the fixed header height */
+    overflow-y: auto; /* Allow vertical scrolling if content overflows */
+    width: 100%; /* Ensure the container takes up full width */
 }

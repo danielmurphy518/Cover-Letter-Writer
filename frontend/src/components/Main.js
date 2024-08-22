@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../Apptest.css';
-import AddIcon from '@mui/icons-material/Add';
 import { Button } from '@mui/material';
 import ModalForm from './ModalForm';
 import JobDetails from './JobDetails';
+import SettingsModal from './SettingsModal'; // Import the SettingsModal component
 import { fetchLinks } from '../api/api';
 
 const Main = () => {
     const [links, setLinks] = useState([]);
     const [selectedJob, setSelectedJob] = useState(null);
-    const fileInputRef = useRef(null); 
+    const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false); // State for SettingsModal
 
     const addLink = (newLink) => {
         setLinks((prevLinks) => [...prevLinks, newLink]);
@@ -17,6 +17,14 @@ const Main = () => {
 
     const handleJobClick = (job) => {
         setSelectedJob(job);
+    };
+
+    const handleOpenSettings = () => {
+        setIsSettingsModalOpen(true); // Open SettingsModal
+    };
+
+    const handleCloseSettings = () => {
+        setIsSettingsModalOpen(false); // Close SettingsModal
     };
 
     useEffect(() => {
@@ -53,8 +61,14 @@ const Main = () => {
                 </div>
             </div>
             <div className="mainbar">
-                <JobDetails job={selectedJob} />
+                {/* Pass the handleOpenSettings function to JobDetails */}
+                <JobDetails job={selectedJob} onOpenSettings={handleOpenSettings} />
             </div>
+            {/* SettingsModal component */}
+            <SettingsModal 
+                open={isSettingsModalOpen} 
+                onClose={handleCloseSettings} 
+            />
         </div>
     );
 };
