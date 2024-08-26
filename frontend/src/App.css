@@ -148,3 +148,6 @@ form button:hover {
   padding-bottom: 1rem; /* Adjust the padding as needed */
 }
 
+.sidebar-content {
+  padding-top: 10px
+}

@@ -62,12 +62,22 @@ const EditRequirementsModal = ({ open, onClose }) => {
                         onChange={(e) => setContent(e.target.value)}
                         margin="normal"
                     />
-                    <Button variant="contained" onClick={handleSave} sx={{ marginRight: 2 }}>
+                    <Button 
+                        variant="contained" 
+                        onClick={handleSave} 
+                        fullWidth 
+                        sx={{ 
+                            marginBottom: 1 // Add some space between the buttons if needed
+                        }}>
                         Save
                     </Button>
-                    <Button variant="outlined" onClick={onClose}>
+                    <Button 
+                        variant="outlined" 
+                        onClick={onClose} 
+                        fullWidth>
                         Cancel
                     </Button>
+
                 </Box>
             </Modal>
 

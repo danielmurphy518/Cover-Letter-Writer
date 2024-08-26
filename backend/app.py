@@ -41,103 +41,17 @@ links = [
             "Git": 1,
             "Android": 1,
             "iOS": 1
-        }
+        },
+        "status": 4
     },
     {
-        "link": "https://www.seek.co.nz/job/77566387?ref=search-standalone&type=promoted&origin=jobTitle#sol=4c4a049305f3d6d02095b3506690c9adc7dd2fd4",
-        "title": "Senior Developer - Microsoft Job in Wellington Central, Wellington - SEEK",
+        "link": "https://www.seek.co.nz/job/77927062?ref=search-standalone&type=promoted&origin=jobTitle#sol=6cee442d9cbb51acc1068946db37002210b7c6e3",
+        "title": "SAP BW Support Consultant - New Zealand based",
         "found_keywords": {
-            "Angular": 1,
-            "HTML": 1,
-            "Azure": 1,
-            "Git": 1,
-            "Android": 1,
-            "iOS": 1
-        }
-    },
-    {
-        "link": "https://www.seek.co.nz/job/77566387?ref=search-standalone&type=promoted&origin=jobTitle#sol=4c4a049305f3d6d02095b3506690c9adc7dd2fd4",
-        "title": "Senior Developer - Microsoft Job in Wellington Central, Wellington - SEEK",
-        "found_keywords": {
-            "Angular": 1,
-            "HTML": 1,
-            "Azure": 1,
-            "Git": 1,
-            "Android": 1,
-            "iOS": 1
-        }
-    },
-    {
-        "link": "https://www.seek.co.nz/job/77566387?ref=search-standalone&type=promoted&origin=jobTitle#sol=4c4a049305f3d6d02095b3506690c9adc7dd2fd4",
-        "title": "Senior Developer - Microsoft Job in Wellington Central, Wellington - SEEK",
-        "found_keywords": {
-            "Angular": 1,
-            "HTML": 1,
-            "Azure": 1,
-            "Git": 1,
-            "Android": 1,
-            "iOS": 1
-        }
-    },
-    {
-        "link": "https://www.seek.co.nz/job/77566387?ref=search-standalone&type=promoted&origin=jobTitle#sol=4c4a049305f3d6d02095b3506690c9adc7dd2fd4",
-        "title": "Senior Developer - Microsoft Job in Wellington Central, Wellington - SEEK",
-        "found_keywords": {
-            "Angular": 1,
-            "HTML": 1,
-            "Azure": 1,
-            "Git": 1,
-            "Android": 1,
-            "iOS": 1
-        }
-    },
-    {
-        "link": "https://www.seek.co.nz/job/77566387?ref=search-standalone&type=promoted&origin=jobTitle#sol=4c4a049305f3d6d02095b3506690c9adc7dd2fd4",
-        "title": "Senior Developer - Microsoft Job in Wellington Central, Wellington - SEEK",
-        "found_keywords": {
-            "Angular": 1,
-            "HTML": 1,
-            "Azure": 1,
-            "Git": 1,
-            "Android": 1,
-            "iOS": 1
-        }
-    },
-    {
-        "link": "https://www.seek.co.nz/job/77566387?ref=search-standalone&type=promoted&origin=jobTitle#sol=4c4a049305f3d6d02095b3506690c9adc7dd2fd4",
-        "title": "Senior Developer - Microsoft Job in Wellington Central, Wellington - SEEK",
-        "found_keywords": {
-            "Angular": 1,
-            "HTML": 1,
-            "Azure": 1,
-            "Git": 1,
-            "Android": 1,
-            "iOS": 1
-        }
-    },
-    {
-        "link": "https://www.seek.co.nz/job/77566387?ref=search-standalone&type=promoted&origin=jobTitle#sol=4c4a049305f3d6d02095b3506690c9adc7dd2fd4",
-        "title": "Senior Developer - Microsoft Job in Wellington Central, Wellington - SEEK",
-        "found_keywords": {
-            "Angular": 1,
-            "HTML": 1,
-            "Azure": 1,
-            "Git": 1,
-            "Android": 1,
-            "iOS": 1
-        }
-    },
-    {
-        "link": "https://www.seek.co.nz/job/77566387?ref=search-standalone&type=promoted&origin=jobTitle#sol=4c4a049305f3d6d02095b3506690c9adc7dd2fd4",
-        "title": "Senior Developer - Microsoft Job in Wellington Central, Wellington - SEEK",
-        "found_keywords": {
-            "Angular": 1,
-            "HTML": 1,
-            "Azure": 1,
-            "Git": 1,
-            "Android": 1,
-            "iOS": 1
-        }
+            "iOS": 1,
+            "Android": 1
+        },
+        "status": 3
     }
 ]
 

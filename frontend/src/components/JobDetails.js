@@ -13,6 +13,24 @@ const JobDetails = ({ job, onOpenSettings }) => {
         }
     };
 
+    // Define the status color and label based on the job status
+    const getStatusInfo = (status) => {
+        switch (status) {
+            case 1:
+                return { color: 'gray', label: 'Not Applied' };
+            case 2:
+                return { color: 'yellow', label: 'Applied' };
+            case 3:
+                return { color: 'green', label: 'Accepted' };
+            case 4:
+                return { color: 'red', label: 'Rejected' };
+            default:
+                return { color: 'gray', label: 'Unknown' };
+        }
+    };
+
+    const { color, label } = getStatusInfo(job?.status);
+
     return (
         <Box className="job-details-container">
             {/* Sticky header with settings button */}
@@ -28,7 +46,7 @@ const JobDetails = ({ job, onOpenSettings }) => {
 
             {/* Display placeholder or job details */}
             {job ? (
-                <Box className="job-content-container">
+                <Box className="job-content-container" sx={{ textAlign: 'center' }}> {/* Center content */}
                     <Typography variant="h4" gutterBottom>
                         {job.title}
                     </Typography>
@@ -37,7 +55,7 @@ const JobDetails = ({ job, onOpenSettings }) => {
                     </Typography>
 
                     {/* Button to open job.link */}
-                    <Box sx={{ marginBottom: '16px' }}>
+                    <Box sx={{ marginBottom: '16px', display: 'flex', justifyContent: 'center' }}>
                         <Button 
                             variant="contained" 
                             color="primary" 
@@ -49,7 +67,7 @@ const JobDetails = ({ job, onOpenSettings }) => {
                     </Box>
 
                     {/* Keywords */}
-                    <Box className="job-keywords-container">
+                    <Box className="job-keywords-container" sx={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 1 }}>
                         {keywords.map((keyword, index) => (
                             <Chip 
                                 key={index} 
@@ -62,17 +80,24 @@ const JobDetails = ({ job, onOpenSettings }) => {
                             />
                         ))}
                     </Box>
-                    {/* Additional content */}
-                    <p>lorem</p>
-                    <p>lorem</p>
-                    <p>lorem</p>
-                    <p>lorem</p>
-                    <p>lorem</p>
-                    <p>lorem</p>
-                    <p>lorem</p>
-                    <p>lorem</p>
-                    <p>lorem</p>
-                    <p>lorem</p>
+
+                    {/* Job status */}
+                    {job.status !== undefined && (
+                        <Box
+                            sx={{
+                                marginTop: '16px',
+                                padding: '8px',
+                                borderRadius: '4px',
+                                backgroundColor: color,
+                                color: 'black', // Changed to black for better contrast
+                                display: 'inline-block'
+                            }}
+                        >
+                            <Typography variant="body1">
+                                Status: {label}
+                            </Typography>
+                        </Box>
+                    )}
                 </Box>
             ) : (
                 <Typography variant="h6" className="job-details-placeholder">
