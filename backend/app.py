@@ -111,7 +111,8 @@ def add_link():
         link_obj = {
             'link': url,
             'title': title,
-            'found_keywords': found_keywords
+            'found_keywords': found_keywords,
+            'status': 1
         }
 
         # Append the link object to the list
